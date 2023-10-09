@@ -35,25 +35,25 @@ export default function ThirdScreen() {
     })
 
 
-    createUserWithEmailAndPassword(auth, userObj.email, userObj.senha)
+    createUserWithEmailAndPassword(auth, email, senha)
       .then(()=> {
         onAuthStateChanged(auth, async (user)=>{
-          let copyUser = {...userObj}
 
-          delete copyUser.email
-          delete copyUser.senha
+          const docRef = doc(db, 'user-providers', user.uid)
 
-          console.log(copyUser)
+          const objCopy = {...userObj}
 
-          await setDoc(doc(db, 'users-providers', user.uid), copyUser)
-            .then(()=> {
-              console.log('Logado')
-              setSignInContext({
-                count: 1,
-                loading: false
-              })
+          delete userCopy.email
+          delete userCopy.senha
+
+          await setDoc(docRef, objCopy)
+          .then(()=> {
+            console.log('Criado')
+            setSignInContext({
+              loading: false
             })
-            .catch((err)=> console.log(err)) 
+          })
+          .catch((error)=> console.log(error))
         })
       })
       .catch((err)=> console.log(err))

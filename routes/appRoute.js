@@ -3,17 +3,98 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import Home from '../screens/Home/index'
+import Fast from '../screens/Fast/index'
+import WorkerScreen from '../screens/Worker/index'
+import ProfileUser from '../screens/ProfileUser/index'
+import ProfileWorker from '../screens/ProfileWorker/index'
+
+import TabBarIcon from '../components/TabBarIcon/index' 
 
 
 function AppBottomTabs(){
 
   const BottomTabs = createBottomTabNavigator()
 
+  const screenOptions = {
+    tabBarShowLabel: false,
+    headerShown: false,
+    tabBarStyle:{
+      borderWidth: 0,
+      borderTopColor:'white', 
+      backgroundColor:'white',
+      height: 55,
+      elevation: 0
+    },
+    tabBarActiveTintColor:'#4F80FF',
+    tabBarInactiveTintColor:'rgba(0, 18, 64, 0.15)',
+  }
+
   return(
-    <BottomTabs.Navigator screenOptions={{headerShown: false}}>
+    <BottomTabs.Navigator screenOptions={screenOptions} initialRouteName='Home'>
+
+      <BottomTabs.Screen
+        name='ProfileWork'
+        component={ProfileWorker}
+        options={{
+          tabBarIcon: ({focused})=> 
+            <TabBarIcon 
+              focused={focused} 
+              image={require('../assets/tabbar/actives/profileWorker.png')}
+              imageInactive={require('../assets/tabbar/inactives/profileWorkerI.png')}
+            />
+        }}
+      />
+
+      <BottomTabs.Screen
+        name='Fast'
+        component={Fast}
+        options={{
+          tabBarIcon: ({focused})=> 
+            <TabBarIcon 
+              focused={focused} 
+              image={require('../assets/fast.png')}
+              imageInactive={require('../assets/tabbar/inactives/fastI.png')}
+            />
+        }}
+      />
+
       <BottomTabs.Screen
         name='Home'
         component={Home}
+        options={{
+          tabBarIcon: ({focused})=> 
+            <TabBarIcon 
+              focused={focused} 
+              image={require('../assets/tabbar/actives/home.png')}
+              imageInactive={require('../assets/tabbar/inactives/homeI.png')}
+            />
+        }}
+      />
+
+      <BottomTabs.Screen
+        name='Search'
+        component={Fast}
+        options={{
+          tabBarIcon: ({focused})=> 
+            <TabBarIcon 
+              focused={focused} 
+              image={require('../assets/tabbar/actives/search.png')}
+              imageInactive={require('../assets/tabbar/inactives/searchI.png')}
+            />
+        }}
+      />
+
+      <BottomTabs.Screen
+        name='ProfileUser'
+        component={ProfileUser}
+        options={{
+          tabBarIcon: ({focused})=> 
+            <TabBarIcon 
+              focused={focused} 
+              image={require('../assets/tabbar/actives/profile.png')}
+              imageInactive={require('../assets/tabbar/inactives/profileI.png')}
+            />
+        }}
       />
     </BottomTabs.Navigator>
   )
@@ -29,6 +110,10 @@ export default function AppRoute() {
       <AppStack.Screen
         name="AppBottomTabs"
         component={AppBottomTabs}
+      />
+      <AppStack.Screen
+        name='Worker'
+        component={WorkerScreen}
       />
     </AppStack.Navigator>
   )

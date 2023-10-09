@@ -1,7 +1,14 @@
 import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import React, {useState} from 'react'
+import { useFonts } from 'expo-font';
+
 
 export default function Input({widthContainer, widthInput, hasIcon, desc, icon, margin, error, ...rest}) {
+
+   let [fontLoaded] = useFonts({
+      'Montserrat': require('../../assets/fonts/Montserrat-Regular.ttf'),
+      'MontBold': require('../../assets/fonts/Montserrat-Bold.ttf')
+   })
 
    const[focus, setFocus] = useState(false)
    const[filled, setFilled] = useState(false)
@@ -13,10 +20,14 @@ export default function Input({widthContainer, widthInput, hasIcon, desc, icon, 
    const onCustomBlur = () =>{
       setFocus(false)
    }
+
+   if(!fontLoaded){
+      return <Text>Carregando</Text>
+   }
    
   return (
    <>
-      {error?.ref?.name == 'password' && <Text style={styles.error}>{error?.message}</Text>}
+      {error && <Text style={styles.error}>{error?.message}</Text>}
       <View 
          style={[styles.containerAll, widthContainer, {
             borderColor: error ? '#DC1637' :  focus ? '#4F80FF' : null, borderWidth: focus ? 1 : error ? 1 : null
@@ -24,7 +35,7 @@ export default function Input({widthContainer, widthInput, hasIcon, desc, icon, 
       >
          <TextInput 
             style={[styles.input, widthInput]} 
-            placeholder={error ? error.message : desc}
+            placeholder={desc}
             placeholderTextColor={error ? '#DC1637' : 'rgba(173, 180, 191, 0.6)'}
             onFocus={onCustomFocus}
             onBlur={onCustomBlur}
@@ -57,7 +68,8 @@ const styles = StyleSheet.create({
    input:{
       height:50,
       color:'#6E737A',
-      paddingHorizontal: 20
+      paddingHorizontal: 20,
+      fontFamily:'Montserrat'
    },
 
    containerIcon:{

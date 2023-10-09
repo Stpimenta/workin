@@ -3,6 +3,7 @@ import React, {useContext} from 'react'
 import SignInContext from '../../context/SignInContext';
 import * as Progress from 'react-native-progress';
 import { useNavigation } from '@react-navigation/native';
+import CustomText from '../Texts/CustomText';
 
 
 export default function HeaderSignUp({subtitle, progress}) {
@@ -30,12 +31,19 @@ export default function HeaderSignUp({subtitle, progress}) {
       </TouchableOpacity>
 
       <View style={{ width:'100%', paddingTop: 0}}>
-         <Text style={styles.title}>Cadastre-se!</Text>
-         <Text style={styles.subtitle}>{
+         <CustomText text='Cadastre-se!' type='bold' style={styles.title}/>
+         <CustomText text={
+            count == 1 ? 'Informações básicas' : 
+            count == 2 ? 'Endereço': 
+            count == 3 ? 'Termos de uso' : null}
+            style={styles.subtitle}
+
+         />
+         {/* <Text style={styles.subtitle}>{
             count == 1 ? 'Informações básicas' : 
             count == 2 ? 'Endereço.' :
             count == 3 ? 'Termos da Workin' : null
-         }</Text>
+         }</Text> */}
       </View>
 
       <Progress.Bar 

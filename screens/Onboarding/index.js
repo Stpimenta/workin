@@ -1,12 +1,16 @@
-import { StyleSheet, Text, View, FlatList, Image, useWindowDimensions } from 'react-native';
+import { StyleSheet, Text, View,  useWindowDimensions } from 'react-native';
 import Animated, { useSharedValue, useAnimatedScrollHandler, useAnimatedRef, useAnimatedStyle,interpolate, Extrapolate } from 'react-native-reanimated';
 import {useCallback} from 'react'
 
 import slides from '../../slides';
 import Pagination from '../../components/Pagination/index';
 import CustomButton from '../../components/CustomButton/index';
+import CustomText from '../../components/Texts/CustomText';
+
+
 
 export default function Onboarding() {
+
    const {width} = useWindowDimensions()
    const x = useSharedValue(0)
    const flatListRef = useAnimatedRef(null)
@@ -77,13 +81,15 @@ export default function Onboarding() {
          />
  
          <Animated.View style={textAnimationStyle}>
-           <Text style={{fontSize: 32, color:'#001240', marginBottom: 10, fontWeight:'bold'}}>{item.title}</Text>
-           <Text style={{fontSize: 22, color:'#001240', fontWeight:'300'}}>{item.desc}</Text>
+           {/* <Text style={{fontSize: 32, color:'#001240', marginBottom: 10, fontFamily:'MontBold'}}>{item.title}</Text>
+           <Text style={{fontSize: 22, color:'#001240', fontFamily:'Montserrat'}}>{item.desc}</Text> */}
+           <CustomText text={item.title} type='bold' style={{fontSize: 30, marginBottom: 11, color:'#001240'}} />
+           <CustomText text={item.desc} style={{fontSize: 22, color:'#001240'}}/>
          </Animated.View>
        </View>
      )
    }
- 
+
 
    return (
      <View style={styles.container}>

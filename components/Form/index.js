@@ -11,6 +11,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import {auth} from '../../firebase/config'
 
 import { useNavigation } from '@react-navigation/native';
+import CustomText from '../Texts/CustomText'
 
 export default function Form() {
 
@@ -47,18 +48,19 @@ export default function Form() {
             icon={require('../../assets/passIcon.png')} 
             hasIcon
          />
-         <Text style={styles.forgetPassword}>Esqueceu sua senha?</Text>
+         <CustomText text='Esqueceu sua senha?' style={styles.forgetPassword}/>
       </Animated.View>
       
 
       <Animated.View entering={FadeInDown.duration(1000).delay(200).springify()}>
          <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={handleSubmit(handleLogin)}>
-            <Text style={styles.textButton}>ENTRAR</Text>
+            <CustomText text='ENTRAR' type='bold' style={{color:'white', fontSize: 20}}/>
          </TouchableOpacity>
+
          <View style={{flexDirection:'row', alignSelf:'center'}}>
-            <Text>Novo por aqui?</Text>
+            <CustomText text='Novo por aqui?' style={{fontSize: 12}}/>
             <TouchableOpacity onPress={()=> navigation.navigate('SignUp')}>
-               <Text style={styles.textSignUp}>Cadastre-se agora!</Text>
+               <CustomText text='Cadastre-se agora!' type='bold' style={{marginLeft: 5, fontSize: 12, color:'#4F80FF'}}/>
             </TouchableOpacity>
          </View>
       </Animated.View>
@@ -86,7 +88,8 @@ const styles = StyleSheet.create({
       alignItems:'center',
       justifyContent:'center',
       shadowColor: "#000",
-      marginBottom: 5
+      marginBottom: 15,
+      elevation: 1
    },
 
    textButton:{

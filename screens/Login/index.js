@@ -1,14 +1,15 @@
 import { View, Text, Image, StyleSheet } from 'react-native'
-import react from 'react'
 import Form from '../../components/Form'
 
-import Animated, {FadeInDown, FadeInUp} from 'react-native-reanimated'
+import Animated, {FadeInUp} from 'react-native-reanimated'
+
+import CustomText from '../../components/Texts/CustomText'
 
 export default function Login() {
   return (
     <View style={styles.containerAll}>
       <Animated.View 
-         style={{flex:1, alignItems:'center', justifyContent:'center',  paddingVertical: 10, minHeight: 60}}
+         style={{flex:0.85, alignItems:'center', justifyContent:'center',  paddingVertical: 10, minHeight: 60}}
          entering={FadeInUp.duration(1000).springify()}
       >
 
@@ -16,8 +17,8 @@ export default function Login() {
       </Animated.View>
 
       <Animated.View style={{ width:'100%'}} entering={FadeInUp.duration(1000).springify()}>
-         <Text style={styles.title}>Bem-vindo!</Text>
-         <Text style={styles.subtitle}>Preencha com suas informações</Text>
+         <CustomText text='Bem-vindo!' type='bold' style={{fontSize: 30, marginBottom: 5, color:'#001240'}} />
+         <CustomText text='Preencha as informações :)' style={{fontSize: 22, color:'#001240'}}/>
       </Animated.View>
       <Form/>
     </View>
