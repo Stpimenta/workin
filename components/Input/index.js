@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
    },
 
    input:{
-      height:50,
+      
       color:'#6E737A',
       paddingHorizontal: 20,
       fontFamily:'Montserrat'

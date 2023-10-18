@@ -12,6 +12,8 @@ import { useNavigation } from '@react-navigation/native';
 
 import Animated, {FadeInUp} from 'react-native-reanimated'
 
+import terms from '../../terms';
+
 
 export default function ThirdScreen() {
 
@@ -35,7 +37,7 @@ export default function ThirdScreen() {
     })
 
 
-    createUserWithEmailAndPassword(auth, email, senha)
+    createUserWithEmailAndPassword(auth, userObj.email, userObj.senha)
       .then(()=> {
         onAuthStateChanged(auth, async (user)=>{
 
@@ -43,15 +45,17 @@ export default function ThirdScreen() {
 
           const objCopy = {...userObj}
 
-          delete userCopy.email
-          delete userCopy.senha
+          delete objCopy.email
+          delete objCopy.senha
 
           await setDoc(docRef, objCopy)
           .then(()=> {
             console.log('Criado')
             setSignInContext({
-              loading: false
+              loading: false,
+              count: 1
             })
+            navigation.navigate('Home')
           })
           .catch((error)=> console.log(error))
         })
@@ -68,11 +72,7 @@ export default function ThirdScreen() {
           entering={FadeInUp.duration(1000).springify()}
         >
         <ScrollView style={{width:'100%', height: 210, marginBottom: 20, paddingHorizontal: 8}}>
-          <Text style={styles.terms}>1.0  - TERMOS DO USUÁRIO</Text>
-          <Text></Text>
-          <Text style={styles.terms}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mattis dolor nec risus laoreet, sit amet accumsan magna facilisis. Mauris vitae blandit leo. Duis nec pulvinar urna. Cras facilisis augue sit amet felis placerat semper. Duis tincidunt ante quis finibus ultricies. Nullam condimentum sapien lectus. Donec vel ipsum eget ante consequat tempor. 
-            Nullam cursussis. Cras in metus sollicitudin, lobortis erat at, consectetur augue. Pellentesque imperdiet lorem eget felis congue, eget tristique magna condimentum.  condimentum  condimentum  condimentum  condimentum  condimentum eget tristique eget tristique.
-          </Text>
+          <Text>{terms}</Text>
         </ScrollView>
 
         <View style={{flexDirection:'row', alignItems:'center'}}>

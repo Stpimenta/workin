@@ -5,7 +5,8 @@ const WorkerContext = createContext({})
 export function WorkerProvider({children}) {
 
    const[worker, setWorker] = useState({
-      nome: undefined
+      nome: undefined,
+
    })
 
   return (

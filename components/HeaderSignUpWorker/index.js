@@ -1,20 +1,20 @@
 import { View,  StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React, {useContext} from 'react'
-import SignInContext from '../../context/SignInContext';
+import SignInWorkerContext from '../../context/SignInWorkerContext';
 import * as Progress from 'react-native-progress';
 import { useNavigation } from '@react-navigation/native';
 import CustomText from '../Texts/CustomText';
 
 
-export default function HeaderSignUp({subtitle, progress}) {
+export default function HeaderSignUpWorker({subtitle, progress}) {
 
-   const {count, setSignInContext} = useContext(SignInContext)
+   const {count, setSignInWorker} = useContext(SignInWorkerContext)
    const navigation = useNavigation()
 
    const back = () =>{
 
       if(count == 1){ 
-         navigation.navigate('Login')
+         navigation.navigate('Home')
          return 
       }
 
@@ -33,17 +33,13 @@ export default function HeaderSignUp({subtitle, progress}) {
       <View style={{ width:'100%', paddingTop: 0}}>
          <CustomText text='Cadastre-se!' type='bold' style={styles.title}/>
          <CustomText text={
-            count == 1 ? 'Informações básicas' : 
-            count == 2 ? 'Endereço': 
-            count == 3 ? 'Termos de uso' : null}
+            count == 1 ? 'CPF' : 
+            count == 2 ? 'Filtros': 
+            count == 3 ? 'Descrição' : 
+            count == 4 ? 'Sua foto de perfil': null}
             style={styles.subtitle}
 
          />
-         {/* <Text style={styles.subtitle}>{
-            count == 1 ? 'Informações básicas' : 
-            count == 2 ? 'Endereço.' :
-            count == 3 ? 'Termos da Workin' : null
-         }</Text> */}
       </View>
 
       <Progress.Bar 

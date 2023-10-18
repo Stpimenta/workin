@@ -1,5 +1,5 @@
 import { View, TouchableOpacity, StyleSheet, FlatList, ScrollView } from 'react-native'
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 
 import {requestForegroundPermissionsAsync, getCurrentPositionAsync} from 'expo-location'
 import { MaterialIcons } from '@expo/vector-icons';
@@ -13,6 +13,8 @@ import WorkerCardHorizontal from '../../components/WorkerCardHorizontal';
 
 import data from '../../data';
 import data2 from '../../data2';
+
+import AuthContext from '../../context/AuthContext'
 
 
 export default function Home() {
@@ -50,7 +52,9 @@ export default function Home() {
       <View style={{width:'100%', paddingHorizontal: 10, marginBottom: 60, marginTop: 50}}>
         <TouchableOpacity 
           style={{width:'100%', height: 110, backgroundColor:'#A5D0FF', borderRadius: 10, padding: 15}}
-          onPress={()=> navigation.navigate('ProfileWork')}
+          onPress={()=> {
+            console.log(user)
+          }}
         >
           <CustomText text='Torne-se um PRESTADOR de SERVIÇOS'  type='bold' style={{width: 220, fontSize: 15}}/>
         </TouchableOpacity>

@@ -11,12 +11,14 @@ export function SignInProvider({children}){
       password:'',
       endereco:{},
       count: 1,
-      loading: false
+      loading: false,
+      isWorker: false
    })
    
    return(
       <SignInContext.Provider value={{
-         ...signInContext, setSignInContext: (data) => setSignInContext({...signInContext, ...data})
+         ...signInContext, 
+         setSignInContext: (data) => setSignInContext({...signInContext, ...data}),
       }}>
          {children}
       </SignInContext.Provider>

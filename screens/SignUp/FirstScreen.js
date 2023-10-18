@@ -49,7 +49,7 @@ export default function FirstScreen() {
                 name='nome'
                 control={control}
                 widthContainer={{width:'100%'}} 
-                widthInput={{flex:1}}
+                widthInput={{flex:1, height:50}}
                 hasIcon
                 icon={require('../../assets/userIcon.png')}
                 desc='Seu nome'
@@ -60,7 +60,7 @@ export default function FirstScreen() {
                 name='email'
                 control={control}
                 widthContainer={{width:'100%'}} 
-                widthInput={{flex:1}}
+                widthInput={{flex:1, height:50}}
                 hasIcon
                 icon={require('../../assets/emailicon.png')}
                 desc='Seu email'

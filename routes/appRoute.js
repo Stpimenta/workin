@@ -1,17 +1,23 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+
+import SignInContext from '../context/SignInContext'
 
 import Home from '../screens/Home/index'
 import Fast from '../screens/Fast/index'
 import WorkerScreen from '../screens/Worker/index'
 import ProfileUser from '../screens/ProfileUser/index'
 import ProfileWorker from '../screens/ProfileWorker/index'
+import SignUpWorker from '../screens/SignUpWorker/index'
+import DefaultScreenWorker from '../screens/SignUpWorker/default'
 
 import TabBarIcon from '../components/TabBarIcon/index' 
 
 
 function AppBottomTabs(){
+
+  const {isWorker} = useContext(SignInContext)
 
   const BottomTabs = createBottomTabNavigator()
 
@@ -33,8 +39,8 @@ function AppBottomTabs(){
     <BottomTabs.Navigator screenOptions={screenOptions} initialRouteName='Home'>
 
       <BottomTabs.Screen
-        name='ProfileWork'
-        component={ProfileWorker}
+        name='PWorker'
+        component={isWorker ? ProfileWorker : DefaultScreenWorker}
         options={{
           tabBarIcon: ({focused})=> 
             <TabBarIcon 
@@ -93,7 +99,8 @@ function AppBottomTabs(){
               focused={focused} 
               image={require('../assets/tabbar/actives/profile.png')}
               imageInactive={require('../assets/tabbar/inactives/profileI.png')}
-            />
+            />,
+          tabBarHideOnKeyboard: true
         }}
       />
     </BottomTabs.Navigator>
@@ -114,6 +121,11 @@ export default function AppRoute() {
       <AppStack.Screen
         name='Worker'
         component={WorkerScreen}
+      />
+
+      <AppStack.Screen
+        name='SignUpWorker'
+        component={SignUpWorker}
       />
     </AppStack.Navigator>
   )
