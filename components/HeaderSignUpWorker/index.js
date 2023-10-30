@@ -18,7 +18,7 @@ export default function HeaderSignUpWorker({subtitle, progress}) {
          return 
       }
 
-      setSignInContext({
+      setSignInWorker({
          count: count - 1
       })
    }
@@ -35,7 +35,7 @@ export default function HeaderSignUpWorker({subtitle, progress}) {
          <CustomText text={
             count == 1 ? 'CPF' : 
             count == 2 ? 'Filtros': 
-            count == 3 ? 'Descrição' : 
+            count == 3 ? 'Descrição e Preço' : 
             count == 4 ? 'Sua foto de perfil': null}
             style={styles.subtitle}
 
@@ -46,7 +46,7 @@ export default function HeaderSignUpWorker({subtitle, progress}) {
          progress={progress} 
          width={null} 
          height={2} 
-         style={{marginBottom: 40, marginHorizontal: 3, marginTop: 20}}
+         style={{marginBottom: 20, marginHorizontal: 3, marginTop: 20}}
          borderWidth={0}
          unfilledColor='rgba(79, 128, 255, 0.2)'
          color='#4F80FF'

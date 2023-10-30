@@ -19,7 +19,8 @@ export default function FirstScreen() {
   const nextStep = (data) =>{
 
    setSignInWorker({
-    description: data.desc,
+    descricao: data.desc,
+    price: data.price,
     count: 4
    })
   }
@@ -31,18 +32,28 @@ export default function FirstScreen() {
           style={styles.form}
           entering={FadeInUp.duration(1000).springify()}
         >
-            <CustomText text='Escreva uma descrição do que você faz e como você trabalha :)' type='bold' style={{fontSize: 14, color:'#001240', marginBottom: 20}}/>
-           <ControlledInput
+            <CustomText text='Escreva uma descrição do que você faz e como você trabalha :)' type='bold' style={{fontSize: 14, color:'#001240', marginBottom: 10}}/>
+            <ControlledInput
                 name='desc'
                 control={control}
-                widthContainer={{width:'100%', height: 200}} 
-                widthInput={{width:'100%', height: 160}}
+                widthContainer={{width:'100%', height: 140}} 
+                widthInput={{width:'100%', height: '100%', paddingVertical: 10}}
                 desc='Descrição'
                 error={errors.email}
                 multiline
                 textAlignVertical='top'
-                
-            /> 
+            />
+            <CustomText text='Coloca um preço médio dos seus serviços:' type='bold' style={{fontSize: 14, color:'#001240', marginBottom: 10, marginTop: 10}}/>
+            <ControlledInput
+                name='price'
+                control={control}
+                widthContainer={{width:'100%', height: 50}} 
+                widthInput={{width:'100%', height: '100%', paddingVertical: 10}}
+                desc='R$'
+                error={errors.email}
+                inputMode='numeric'
+            />
+            
         </Animated.View>
       </KeyboardAvoidingView>
 

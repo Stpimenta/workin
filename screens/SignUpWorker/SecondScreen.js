@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList} from 'react-native'
 import React, {useState, useContext} from 'react'
 import CustomText from '../../components/Texts/CustomText'
 
@@ -7,8 +7,38 @@ import SignInWorkerContext from '../../context/SignInWorkerContext'
 import Animated, {FadeInUp} from 'react-native-reanimated'
 
 let arr = []
-let filters = ['Eletricista', 'Encanador', 'Geladeira', 'Pias', 'Luthie', 'Ar Condicionado', 
-'Lâmpada', 'Micro-ondas', 'Violão', 'Costura', 'Pintura', 'Chuveiros', ]
+let filters = [
+'Eletricista', 
+'Encanador', 
+'Pedreiro',
+'Faxineiro',
+'Babá',
+'Cabeleireiro',
+'Fotógrafo',
+'Pintor',
+'Cuidador de pets',
+'Geladeira', 
+'Pias', 
+'Luthie', 
+'Ar Condicionado', 
+'Micro-ondas', 
+'Violão', 
+'Costura', 
+'Pintura', 
+'Chuveiros', 
+'Lâmpada',
+'Máquina de lavar',
+'Telefone',
+'Caixa d’água',
+'Torneiras',
+'Vasos sanitários',
+'Caixas de esgoto',
+'Ralos',
+'Reservatórios',
+'Tanques',
+'Encanamento',
+'Tubulações',
+]
 
 
 function Filter({name}){
@@ -65,13 +95,23 @@ export default function SecondScreen() {
          <CustomText 
             text='Seleciona o que você faz e com o que você mexe!'
             type='bold'
-            style={{fontSize: 18, marginBottom: 20}}
+            style={{fontSize: 18, marginBottom: 20, color:'#001240'}}
          />
 
-         <ScrollView contentContainerStyle={styles.filterContainer}>
-           {filters.map((item)=> <Filter key={item} name={item}/>)}
+         <ScrollView style={{width:'100%', height:'100%'}}>
+            <View style={styles.filterContainer}>
+
+            {filters.map((item)=> <Filter key={item} name={item}/>)} 
+            </View>
 
          </ScrollView>
+
+         {/* <View style={styles.filterContainer}>
+            <FlatList
+               data={filters}
+               renderItem={({item})=> <Filter name={item}/>}
+            />
+         </View> */}
       </Animated.View>
 
       <TouchableOpacity style={styles.button} onPress={nextStep}>
@@ -107,7 +147,7 @@ const styles = StyleSheet.create({
       width:'100%',
       height:'100%',
       flexDirection:'row',
-      flexWrap:'wrap'
+      flexWrap:'wrap',
     },
 
     filter:{

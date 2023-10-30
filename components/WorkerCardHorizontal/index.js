@@ -8,6 +8,9 @@ import WorkerContext from '../../context/WorkerContext';
 import styles from './style';
 import CustomText from '../Texts/CustomText';
 
+import { AntDesign, Foundation  } from '@expo/vector-icons'; 
+
+
 export default function WorkerCardHorizontal({item}) {
 
    const arr = [1, 2,3]
@@ -30,9 +33,6 @@ export default function WorkerCardHorizontal({item}) {
   return (
     <TouchableOpacity style={styles.card} activeOpacity={0.7} onPress={()=> handleNavigation()}>
 
-      <View style={styles.circle}></View>
-      <View style={styles.circle2}></View>
-
       <View style={{width: 90, height:'100%', borderRadius:10, overflow:'hidden'}}>
         <Image
           source={item.foto}
@@ -44,12 +44,22 @@ export default function WorkerCardHorizontal({item}) {
           <View>
             <CustomText text={item.nome} type='bold' style={styles.title}/>
             
-            <View style={{flexDirection:'row', gap:15, flexWrap:'wrap'}}>
-              {arr.map(()=> <Text style={{fontSize:10}}>Eletricista</Text>)}
+            <View style={{flexDirection:'row', gap:12, flexWrap:'wrap'}}>
+              {arr.map(()=> <CustomText text='Eletricista' style={{fontSize:11}}/>)}
             </View>
           </View>
 
-          <Text>4.3</Text>
+          <View style={{ flexDirection:'row', alignItems:'flex-end', justifyContent:'space-between'}}>
+            <View style={{flexDirection:'row', alignItems:'center'}}>
+              <CustomText text='5' type='semi' style={{fontSize: 18, marginRight: 6, color:'#001240'}}/>
+              <AntDesign name="star" size={16} color="#001240"/>
+            </View>
+
+            <View style={{flexDirection:'row', alignItems:'center'}}>
+              <CustomText text='20,99' style={{fontSize: 16, marginRight: 6, color:'#001240'}}/>
+              <Foundation name="dollar" size={22} color="#001240" />
+            </View>
+          </View>
         </View>
     </TouchableOpacity>
   );

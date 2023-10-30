@@ -1,9 +1,13 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, {useContext} from 'react'
 
 import { useFonts } from 'expo-font';
+import SignInContext from '../../context/SignInContext';
 
 export default function CustomText({type, text, style}) {
+
+   const {loading,setSignInContext} = useContext(SignInContext)
+
 
    let [fontLoaded] = useFonts({
       'Montserrat': require('../../assets/fonts/Montserrat-Regular.ttf'),
@@ -12,7 +16,7 @@ export default function CustomText({type, text, style}) {
    })
 
    if(!fontLoaded){
-      return <Text>Carregando</Text>
+      return <Text></Text>
    }
 
    

@@ -1,19 +1,22 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import React, {useEffect, useState, useContext} from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, Image,} from 'react-native'
+import React, {useEffect, useState, useContext, useRef} from 'react'
 import Animated, {FadeInUp} from 'react-native-reanimated'
 import * as ImagePicker from 'expo-image-picker'
 
-import {storage} from '../../firebase/config'
-import {ref, uploadBytes, listAll, getDownloadURL} from 'firebase/storage'
+import {auth, db, storage} from '../../firebase/config'
+import { doc, setDoc, updateDoc, getDoc } from 'firebase/firestore'
 
 import AuthContext from '../../context/AuthContext'
 import SignInWorkerContext from '../../context/SignInWorkerContext'
 import SignInContext from '../../context/SignInContext'
 
-
 import CustomText from '../../components/Texts/CustomText'
-
 import { useNavigation } from '@react-navigation/native';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+
+import * as FileSystem from 'expo-file-system'
+
+
 
 
 export default function FourthScreen() {
@@ -31,14 +34,11 @@ export default function FourthScreen() {
 
     const[permission, setPermission] = useState(null)
     const[image, setImage] = useState(null)
+    const[uri, setUri] = useState('')
+
     const {user} = useContext(AuthContext)
-    const {setSignInWorker} = useContext(SignInWorkerContext)
-    const {setSignInContext} = useContext(SignInContext)
-
-
-    async function fetchImages(){
-  
-    }
+    const{setSignInContext} = useContext(SignInContext)
+    const {CPF, filters, descricao, price} = useContext(SignInWorkerContext)
 
     async function pickImage(){
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -48,27 +48,82 @@ export default function FourthScreen() {
         quality: 1
       })
 
-      console.log(result.assets[0].uri)
-
       if(!result.canceled){
+        console.log(result.assets[0].uri)
         setImage(result.assets[0].uri)
       }
     }
 
-    
 
-   function nextStep(){
-  
-    setSignInWorker({
-      URLimage: image
+    async function upload(){
+      try {
+        const {uri} = await FileSystem.getInfoAsync(image)
+        const blob = await new Promise((resolve, reject)=> {
+          const xhr = new XMLHttpRequest()
+
+          xhr.onload = () =>{
+            resolve(xhr.response)
+          }
+
+          xhr.onerror = (e) =>{
+            reject(new TypeError('Network Request Failed'))
+          }
+
+          xhr.responseType = 'blob'
+          xhr.open('GET', uri, true)
+          xhr.send(null)
+        })
+
+        const filename = image.substring(image.lastIndexOf('/') + 1)
+
+        const imageRef = ref(storage, user.uid)
+
+        uploadBytes(imageRef, blob).then((snap)=>{
+          getDownloadURL(ref(storage, snap.metadata.fullPath)).then((url)=>{
+            setUri(url)
+          })
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+   async function nextStep(){
+    const docRef = doc(db, 'prestadores', user.uid)
+    const userRef = doc(db, 'users', user.uid)
+
+    await upload().then(async ()=>{
+
+    await getDoc(userRef).then((doc)=>{
+      setDoc(docRef, {
+        nome: doc.data().nome,
+        telefone: doc.data().telefone,
+        isWorker: true,
+        CPF: CPF,
+        filtros: filters,
+        nota: 5,
+        seguidores: 10,
+        express: false,
+        descricao: descricao,
+        price: price,
+        image: uri
+      }).then(()=>{
+        console.log('cadastrou')
+      })
+    })
+
+    await updateDoc(userRef, {
+      isWorker: true
+    }).then(()=>{
+      console.log('atualizou')
     })
 
     setSignInContext({
       isWorker: true
     })
 
-    navigation.navigate('PWorker')
-
+    navigation.navigate('Home')
+    })
    }
 
 
@@ -80,7 +135,7 @@ export default function FourthScreen() {
       >
 
           <TouchableOpacity style={styles.avatarPicker} onPress={pickImage}>
-             {image && <Image
+            { image && <Image
               style={{width:200, height:200, borderRadius: 200}}
               source={{uri: image}}
             />}
@@ -90,14 +145,10 @@ export default function FourthScreen() {
         <TouchableOpacity style={styles.buttonImage} onPress={pickImage}>
           <CustomText text='Escolher imagem' type='bold' style={{fontSize: 12, color:'#4F80FF'}}/>
         </TouchableOpacity>
-
-        <TouchableOpacity style={styles.buttonImage} onPress={fetchImages}>
-          <CustomText text='imagem' type='bold' style={{fontSize: 12, color:'#4F80FF'}}/>
-        </TouchableOpacity>
       </Animated.View>
 
-      <TouchableOpacity style={styles.button} onPress={nextStep}>
-         <Text style={styles.textButton}>PROSSEGUIR</Text>
+      <TouchableOpacity style={styles.button} onPress={()=> nextStep(uri)}>
+         <Text style={styles.textButton}>FINALIZAR</Text>
       </TouchableOpacity>
    </View>
   )
@@ -151,4 +202,28 @@ const styles = StyleSheet.create({
     marginTop: 10
   }
 })
+
+
+// function pegarImagem(){
+//   onAuthStateChanged(auth, (user)=>{
+
+//     //referencia do diretório
+//     const listRef = ref(storage, `${user.uid}/`);
+
+//     //método pra pegar as imagens desse diretório 
+//     listAll(listRef)
+//       .then((res) => {
+//         // esse res tem um vetor chamado items que tem todas as imagens dentro dele
+
+//         res.items.forEach((itemRef) => {
+//           // Aqui você tem a referencia de cada item.
+//           // Provavelmente você tem que passar esse itemRef dentro daquele getDownloadURL()
+//           // pra obter a url de verdade dele
+
+//         });
+//       }).catch((error) => {
+//         // Se algum erro acontecer 
+//       });
+//   })
+// }
 

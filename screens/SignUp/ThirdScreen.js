@@ -13,85 +13,27 @@ import { useNavigation } from '@react-navigation/native';
 import Animated, {FadeInUp} from 'react-native-reanimated'
 
 import terms from '../../terms';
+import CustomText from '../../components/Texts/CustomText';
 
 
 export default function ThirdScreen() {
 
   const navigation = useNavigation()
 
+  const[id, setId] = useState(null)
+
   const {loading, nome, email, endereco, password, phone, setSignInContext} = useContext(SignInContext)
   const[check, setCheck] = useState(false)
-
-  const finishSignUp = () =>{
-
-    const userObj = {
-      nome: nome,
-      email: email,
-      endereco: endereco,
-      senha: password,
-      telefone: phone      
-    }
-
-    setSignInContext({
-      loading: true
-    })
-
-
-    createUserWithEmailAndPassword(auth, userObj.email, userObj.senha)
-      .then(()=> {
-        onAuthStateChanged(auth, async (user)=>{
-
-          const docRef = doc(db, 'user-providers', user.uid)
-
-          const objCopy = {...userObj}
-
-          delete objCopy.email
-          delete objCopy.senha
-
-          await setDoc(docRef, objCopy)
-          .then(()=> {
-            console.log('Criado')
-            setSignInContext({
-              loading: false,
-              count: 1
-            })
-            navigation.navigate('Home')
-          })
-          .catch((error)=> console.log(error))
-        })
-      })
-      .catch((err)=> console.log(err))
-  }
 
 
   return (
     <View style={styles.containerAll}>
 
-        <Animated.View 
-          style={styles.form}
-          entering={FadeInUp.duration(1000).springify()}
-        >
-        <ScrollView style={{width:'100%', height: 210, marginBottom: 20, paddingHorizontal: 8}}>
-          <Text>{terms}</Text>
-        </ScrollView>
+      <Animated.View 
+        style={styles.form}
+        entering={FadeInUp.duration(1000).springify()}
+      >
 
-        <View style={{flexDirection:'row', alignItems:'center'}}>
-          <BouncyCheckbox
-            size={23}
-            fillColor="#4F80FF"
-            unfillColor="#FFFFFF"
-            onPress={(isChecked) => {setCheck(isChecked)}}
-            innerIconStyle={{borderRadius: 5, borderColor:'#4F80FF'}}
-            iconStyle={{borderRadius: 5}}
-          />
-
-          <View style={{flexDirection:'row'}}>
-            <Text style={{color:'#001240'}}>Li e concordo com os</Text>
-            <Text style={{color:'#4F80FF', fontWeight:'bold'}}> Termos</Text>
-            <Text style={{color:'#001240'}}> e</Text>
-            <Text style={{color:'#4F80FF', fontWeight:'bold'}}> Condições</Text>
-          </View>
-        </View>
       </Animated.View>
 
       <TouchableOpacity style={[styles.button, {opacity: check ? 1 : 0.5}]} disabled={check ? false : true} onPress={finishSignUp}>

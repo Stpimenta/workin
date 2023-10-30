@@ -2,8 +2,8 @@ import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
    card:{
-      width: 200,
-      height: 240,
+      width: 240,
+      height: 260,
       backgroundColor:'white',
       borderRadius: 10,
       padding: 18,
@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
   
    cardTitle:{
       fontSize: 18,
-      marginBottom: 5,
       textAlign:'center',
       color:'#001240'
    },
@@ -28,13 +27,13 @@ const styles = StyleSheet.create({
       borderRadius: 8, 
       marginBottom: 10, 
       overflow:'hidden',
+      backgroundColor:'rgba(0, 0, 0, 0.1)'
    },
 
    avatar:{
       flex:1, 
       resizeMode:'stretch', 
-      height:100,
-      resizeMode:'contain'
+      height:100,   
    },
 
    filterContainer:{

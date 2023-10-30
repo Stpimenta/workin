@@ -26,3 +26,10 @@ export function SignInProvider({children}){
 }
 
 export default SignInContext
+
+const obj = {
+   sender:'',
+   receiver:'',
+   descricao:'',
+   
+}

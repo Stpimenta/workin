@@ -1,23 +1,28 @@
-import React, {useContext} from 'react'
+import React, {useEffect, useContext, useState} from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import SignInContext from '../context/SignInContext'
+import { doc, getDoc } from 'firebase/firestore'
+
+import AuthContext from '../context/AuthContext'
+import TabBarIcon from '../components/TabBarIcon/index' 
 
 import Home from '../screens/Home/index'
 import Fast from '../screens/Fast/index'
-import WorkerScreen from '../screens/Worker/index'
 import ProfileUser from '../screens/ProfileUser/index'
 import ProfileWorker from '../screens/ProfileWorker/index'
+
+import WorkerScreen from '../screens/Worker/index'
 import SignUpWorker from '../screens/SignUpWorker/index'
-import DefaultScreenWorker from '../screens/SignUpWorker/default'
+import Contract from '../screens/Contract/index'
+import Pedidos from '../screens/ProfileUser/Pedidos/index'
+import Servicos from '../screens/ProfileWorker/Servicos'
+import Andamento from '../screens/ProfileWorker/EmAndamento'
 
-import TabBarIcon from '../components/TabBarIcon/index' 
-
+import NotificationScreen from '../Notification'
 
 function AppBottomTabs(){
 
-  const {isWorker} = useContext(SignInContext)
 
   const BottomTabs = createBottomTabNavigator()
 
@@ -27,12 +32,12 @@ function AppBottomTabs(){
     tabBarStyle:{
       borderWidth: 0,
       borderTopColor:'white', 
-      backgroundColor:'white',
+      backgroundColor:'#4F80FF',
       height: 55,
       elevation: 0
     },
-    tabBarActiveTintColor:'#4F80FF',
-    tabBarInactiveTintColor:'rgba(0, 18, 64, 0.15)',
+    tabBarActiveTintColor:'white',
+    tabBarInactiveTintColor:'rgba(255, 255, 255, 0.15)',
   }
 
   return(
@@ -40,7 +45,7 @@ function AppBottomTabs(){
 
       <BottomTabs.Screen
         name='PWorker'
-        component={isWorker ? ProfileWorker : DefaultScreenWorker}
+        component={ProfileWorker}
         options={{
           tabBarIcon: ({focused})=> 
             <TabBarIcon 
@@ -126,6 +131,30 @@ export default function AppRoute() {
       <AppStack.Screen
         name='SignUpWorker'
         component={SignUpWorker}
+      />
+
+      <AppStack.Screen
+        name='Contract'
+        component={Contract}
+      />
+
+      <AppStack.Screen
+        name='Pedidos'
+        component={Pedidos}
+      />
+
+      <AppStack.Screen
+        name='Servicos'
+        component={Servicos}
+      />
+      <AppStack.Screen
+        name='Andamento'
+        component={Andamento}
+      />
+
+    <AppStack.Screen
+        name='Noti'
+        component={NotificationScreen}
       />
     </AppStack.Navigator>
   )

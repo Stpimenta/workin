@@ -5,6 +5,7 @@ import SignInContext from '../../context/SignInContext'
 import FirstScreen from './FirstScreen'
 import SecondScreen from './SecondScreen'
 import ThirdScreen from './ThirdScreen'
+import FourthScreen from './FourthScreen'
 
 import HeaderSignUp from '../../components/HeaderSignUp'
 
@@ -16,13 +17,16 @@ export default function SignUp() {
 
     useEffect(()=>{
         if(count == 1){
-            setProgress(0.33)
+            setProgress(0.25)
         }
         if(count == 2){
-            setProgress(0.66)
+            setProgress(0.50)
         }
         if(count == 3){
-            setProgress(0.999)
+            setProgress(0.75)
+        }
+        if(count == 4){
+            setProgress(1)
         }
     }, [count])
 
@@ -33,9 +37,6 @@ export default function SignUp() {
                 source={require('../../assets/logo.png')}
                 style={{width: 200, height: 40}}
             />
-
-            <Text>Carregando...</Text>
-
           </View>
         )
       }
@@ -53,6 +54,9 @@ export default function SignUp() {
             ) : 
             count == 3 ? (
                 <ThirdScreen/>
+            ) : 
+            count == 4 ? (
+                <FourthScreen/>
             ) : null}
         </View>
     )

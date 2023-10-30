@@ -11,9 +11,9 @@ export default function Default(){
    const navigation = useNavigation()
 
    return(
-      <View>
+      <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
          <TouchableOpacity style={styles.test} onPress={()=> navigation.navigate('SignUpWorker')}>
-            <Text>HAHAHAHAHAHHAHAHAHAHA</Text>
+            <Text>CADASTRO PRESTADOR</Text>
          </TouchableOpacity>
       </View>
    )
