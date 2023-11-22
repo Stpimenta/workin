@@ -35,7 +35,8 @@ export default function HeaderSignUp({subtitle, progress}) {
          <CustomText text={
             count == 1 ? 'Informações básicas' : 
             count == 2 ? 'Endereço': 
-            count == 3 ? 'Termos de uso' : null}
+            count == 3 ? 'Foto de perfil' : 
+            count == 4 ? 'Termos de uso' : null}
             style={styles.subtitle}
 
          />

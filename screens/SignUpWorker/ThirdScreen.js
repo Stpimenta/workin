@@ -1,7 +1,9 @@
 import { View, Text, StyleSheet,  KeyboardAvoidingView, TouchableOpacity } from 'react-native'
-import React, {useContext} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import Animated, {FadeInUp} from 'react-native-reanimated'
 import SignInWorkerContext from '../../context/SignInWorkerContext'
+
+import * as  Notification from 'expo-notifications'
 
 import ControlledInput from '../../components/ControlledInput'
 import {useForm} from 'react-hook-form'
@@ -13,8 +15,8 @@ import CustomText from '../../components/Texts/CustomText'
 export default function FirstScreen() {
 
   const {control, handleSubmit, formState: {errors}} = useForm()
-
   const{setSignInWorker} = useContext(SignInWorkerContext)
+  
 
   const nextStep = (data) =>{
 
@@ -24,6 +26,9 @@ export default function FirstScreen() {
     count: 4
    })
   }
+
+
+
 
   return (
     <View style={styles.containerAll}>

@@ -9,7 +9,7 @@ import WorkerContext from '../../context/WorkerContext';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 
-import { AntDesign, Foundation  } from '@expo/vector-icons'; 
+import { AntDesign, Foundation, FontAwesome   } from '@expo/vector-icons'; 
 
 export default function WorkerCard({item, filters}) {
 
@@ -19,6 +19,7 @@ export default function WorkerCard({item, filters}) {
 
   async function handleNavigation(){  
 
+
     setWorker({
       receiver:{
         nome: item.data.nome,
@@ -27,6 +28,8 @@ export default function WorkerCard({item, filters}) {
         nota: item.data.nota,
         price: item.data.price,
         image: item.data.image,
+        seguidores: item.data.seguidores,
+        token: item.data.token,
         id: item.id,
       }
     })
@@ -41,33 +44,35 @@ export default function WorkerCard({item, filters}) {
       <View>
         <View style={styles.avatarMask}>
           <Image
-            source={{uri: item ? item.data.image : 'https://img.icons8.com/?size=256&id=87293&format=png'}}
+            source={{uri:  item ? item.data.image : 'https://img.icons8.com/?size=256&id=87293&format=png'}}
             style={styles.avatar}
           />
         </View>
-
-        <CustomText text={item.data.nome} type='bold' style={styles.cardTitle}/>
       </View>
 
-      <View style={{flexDirection:'row', gap: 8, flexWrap:'wrap', alignSelf:'center'}}>
-        {/* 
-        <CustomText text='Luthie' style={{fontSize: 12}}/>
-        <CustomText text='Pias' style={{fontSize: 12}}/> */}
-
-        {filters.map((filtro, idx)=> <CustomText text={filtro} key={idx} style={{fontSize: 12}}/>)}
+      <View style={{flex:1,  padding: 10}}>
+        <CustomText text={item.data.nome} style={styles.cardTitle} type='semi'/>
+          <View style={{flexDirection:'row', gap: 8, flexWrap:'wrap'}}>
+            {filters.map((filtro, idx)=> <CustomText text={filtro} key={idx} style={{fontSize: 10}}/>)}
+          </View>
       </View>
 
-
-      <View style={{ flexDirection:'row', alignItems:'flex-end', justifyContent:'space-between'}}>
+      <View style={{width:'100%', flexDirection:'row', alignSelf:'flex-end', justifyContent:'space-between', paddingHorizontal: 10, paddingBottom: 10}}>
         <View style={{flexDirection:'row', alignItems:'center'}}>
-          <CustomText text='5' type='semi' style={{fontSize: 20, marginRight: 6, color:"#001240"}}/>
-          <AntDesign name="star" size={16} color="#001240"/>
+          <CustomText text={item.data.nota} style={{fontSize: 18, marginRight: 4, color:"#001240"}}/>
+          <FontAwesome name="star" size={16} color="#001240"/>
         </View>
         <View style={{flexDirection:'row', alignItems:'center'}}>
-          <CustomText text={`${item.data.price},00`}  style={{fontSize: 18, marginRight: 6, color:"#001240"}}/>
-          <Foundation name="dollar" size={24} color="#001240" />
+          <CustomText text={`R$${item.data.price},00`} type={'semi'} style={{fontSize: 18, marginRight: 6, color:"#001240"}}/>
         </View>
       </View>
+
+      
+
+
+      {/* <View style={{ flexDirection:'row', alignItems:'flex-end', }}>
+        
+      </View> */}
 
     </TouchableOpacity>
   )

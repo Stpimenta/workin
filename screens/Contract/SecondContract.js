@@ -52,6 +52,22 @@ function Tela2() {
       setWorker({
         count: 3,
       })
+
+      const message = {
+        to: receiver.token,
+        title: `${sender.nome} fez um pedido!`,
+        body: 'Confira seus serviços no perfil!',
+      }
+  
+      fetch('https://exp.host/--/api/v2/push/send', {
+          method:'POST',
+          headers: {
+            Accept: 'application/json',
+            'Accept-encoding': 'gzip, deflate',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(message)
+        })
     })
   }
 

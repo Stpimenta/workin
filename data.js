@@ -20,11 +20,4 @@ export default [
       descricao:'Consigo consertar qualquer tipo de pia. Eu sou o maior especialista de pias que esse mundo já presenciou. Você tem uma pia? Eu conserto',
       filtros:['Eletricista', 'Armário', 'Chuveiros', 'Encanação', 'Luthie']
    },
-   {
-      nome:'Fulando de tal',
-      foto:{uri: 'https://images.unsplash.com/photo-1614213951697-a45781262acf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8d29ya2VyfGVufDB8fDB8fHww&w=1000&q=80'},
-      nota:'3.0',
-      descricao:'Consigo consertar qualquer tipo de pia. Eu sou o maior especialista de pias que esse mundo já presenciou. Você tem uma pia? Eu conserto',
-      filtros:['TVs', 'Chuveiros', 'Ar condicionado', 'Costura']
-   },
 ]

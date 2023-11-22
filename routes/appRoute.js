@@ -11,6 +11,7 @@ import Home from '../screens/Home/index'
 import Fast from '../screens/Fast/index'
 import ProfileUser from '../screens/ProfileUser/index'
 import ProfileWorker from '../screens/ProfileWorker/index'
+import Search from '../screens/Search/Firstindex'
 
 import WorkerScreen from '../screens/Worker/index'
 import SignUpWorker from '../screens/SignUpWorker/index'
@@ -18,6 +19,11 @@ import Contract from '../screens/Contract/index'
 import Pedidos from '../screens/ProfileUser/Pedidos/index'
 import Servicos from '../screens/ProfileWorker/Servicos'
 import Andamento from '../screens/ProfileWorker/EmAndamento'
+import Favoritos from '../screens/ProfileUser/Favoritos'
+import AboutUs from '../screens/ProfileUser/About us/index'
+import Help from '../screens/ProfileUser/Help/index'
+import Secondsearch from '../screens/Search/secondindex'
+
 
 import NotificationScreen from '../Notification'
 
@@ -31,7 +37,7 @@ function AppBottomTabs(){
     headerShown: false,
     tabBarStyle:{
       borderWidth: 0,
-      borderTopColor:'white', 
+      borderTopColor:'#4F80FF', 
       backgroundColor:'#4F80FF',
       height: 55,
       elevation: 0
@@ -84,7 +90,7 @@ function AppBottomTabs(){
 
       <BottomTabs.Screen
         name='Search'
-        component={Fast}
+        component={Search}
         options={{
           tabBarIcon: ({focused})=> 
             <TabBarIcon 
@@ -152,9 +158,29 @@ export default function AppRoute() {
         component={Andamento}
       />
 
-    <AppStack.Screen
+      <AppStack.Screen
         name='Noti'
         component={NotificationScreen}
+      />
+
+      <AppStack.Screen
+        name='Favoritos'
+        component={Favoritos}
+      />
+
+      <AppStack.Screen
+        name='About'
+        component={AboutUs}
+      />
+
+      <AppStack.Screen
+        name='Help'
+        component={Help}
+      />
+
+      <AppStack.Screen
+        name='Teste'
+        component={Secondsearch}
       />
     </AppStack.Navigator>
   )

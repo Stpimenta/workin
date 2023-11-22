@@ -9,7 +9,8 @@ export function WorkerProvider({children}) {
       sender:{},
       date:'',
       descricao:'',
-      count: 1
+      count: 1,
+      contador: 0
    })
 
   return (

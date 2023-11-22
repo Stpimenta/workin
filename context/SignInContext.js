@@ -12,7 +12,8 @@ export function SignInProvider({children}){
       endereco:{},
       count: 1,
       loading: false,
-      isWorker: false
+      isWorker: false,
+      image:''
    })
    
    return(

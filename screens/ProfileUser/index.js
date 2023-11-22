@@ -47,6 +47,15 @@ export default function ProfileUser() {
       })
    }
 
+
+   if(dados == null){
+      return(
+         <View>
+
+         </View>
+      )
+   }
+
   return (
     <ScrollView style={styles.containerAll}>
       <TouchableOpacity style={{width: 25, height: 25, alignSelf:'flex-end'}} onPress={handleLogout}>
@@ -55,20 +64,22 @@ export default function ProfileUser() {
 
       <View style={styles.containerName}>
          <View style={styles.userMask}>
-
+            <Image source={{uri: dados.image != '' ? dados.image : 'https://cdn-icons-png.flaticon.com/512/666/666201.png'}} style={{width:'100%', height:'100%', borderRadius: 100}}/>
          </View>
 
          <CustomText text={dados?.nome} type='bold' style={{fontSize: 24}}/>
       </View>
 
       <View style={styles.containerOptions}>
-         <Option name='Pedidos' icon={require('../../assets/pedidos.png')} screen='Pedidos'/>
-         <Option name='Favoritos' icon={require('../../assets/favoritos.png')}/>
+         <Option name='Pedidos' icon={require('../../assets/pedidos.png')} screen='Pedidos' hasSeta/>
+         <Option name='Favoritos' icon={require('../../assets/favoritos.png')} screen='Favoritos' hasSeta/>
          <Option name='Notificação' icon={require('../../assets/notification.png')}/>
-         <Option name='Sobre nós' icon={require('../../assets/team.png')}/>
-         <Option name='Ajuda' icon={require('../../assets/ajuda.png')}/>
-         <Option name='Termos' icon={require('../../assets/terms.png')}/>
+         <Option name='Sobre nós' icon={require('../../assets/team.png')} hasSeta screen='About'/>
+         <Option name='Ajuda' icon={require('../../assets/ajuda.png')} hasSeta screen='Help'/>
+         <Option name='Termos' icon={require('../../assets/terms.png')} hasSeta/>
       </View>
     </ScrollView>
   )
 }
+
+

@@ -10,6 +10,7 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import Animated, {FadeInUp} from 'react-native-reanimated'
 
 const schema = yup.object({
+  cep: yup.string().min(8, 'CEP inválido'),
   rua: yup.string().required('Informe sua rua'),
   numero: yup.number().required('nº da sua casa'),
   bairro: yup.string().required('Informe seu bairro'),
@@ -61,6 +62,7 @@ export default function SecondScreen() {
             desc='Seu CEP'
             onSubmitEditing={({nativeEvent: {text}})=> requestAdress(text)}
             error={errors.cep}
+            inputMode='numeric'
           />
 
           <View style={{flexDirection:'row', gap: 10}}>

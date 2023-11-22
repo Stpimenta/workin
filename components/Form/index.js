@@ -1,5 +1,5 @@
 
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View,  TouchableOpacity, StyleSheet, Alert } from 'react-native'
 import React from 'react'
 
 import {useForm} from 'react-hook-form'
@@ -13,16 +13,34 @@ import {auth} from '../../firebase/config'
 import { useNavigation } from '@react-navigation/native';
 import CustomText from '../Texts/CustomText'
 
+import * as yup from 'yup'
+import {yupResolver} from '@hookform/resolvers/yup'
+
+
+const schema = yup.object({
+   email: yup.string().email('Email invalido').required('Informe um email'),
+   password: yup.string().min(6, "A senha deve conter 6 digitos.").required("Informe sua senha")
+})
+
+
 export default function Form() {
 
-   const {control, handleSubmit} = useForm()
+
+
+   const {control, handleSubmit, formState: {errors}} = useForm({
+      resolver: yupResolver(schema)
+   })
 
    const navigation = useNavigation()
 
    const handleLogin = (data) =>{
       signInWithEmailAndPassword(auth, data.email, data.password)
          .then(()=> console.log('logado'))
-         .catch(()=> console.log('error'))
+         .catch(()=> {
+            Alert.alert('Usuário não encontrado', 'Veja se digitou os dados corretamente.', [
+               {text: 'OK', onPress: () => console.log('OK Pressed')}
+            ])
+         })
    }
    
   return (
@@ -37,6 +55,7 @@ export default function Form() {
             icon={require('../../assets/emailicon.png')} 
             hasIcon
             autoCapitalize='none'
+            error={errors.email}
          />
 
          <ControlledInput
@@ -47,6 +66,8 @@ export default function Form() {
             desc='Seu senha' 
             icon={require('../../assets/passIcon.png')} 
             hasIcon
+            error={errors.password}
+            secureTextEntry
          />
          <CustomText text='Esqueceu sua senha?' style={styles.forgetPassword}/>
       </Animated.View>

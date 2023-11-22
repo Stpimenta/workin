@@ -78,19 +78,15 @@ export default function Servicos() {
    }
 
 
-
-   if(servicos?.length == 0){
-      return(
-         <Text>Você ainda não tem servicos.</Text>
-      )
-   }
-
   return (
     <View style={styles.containerAll}>
       <Image
          source={require('../../../assets/backSignUp.png')}
          style={styles.backIcon}
       />
+
+      {servicos?.length == 0 && <CustomText text='Você não tem serviços'/>}
+
 
       {servicos?.map((item)=> {
          return(

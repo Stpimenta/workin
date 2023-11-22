@@ -2,6 +2,8 @@ import { View, Text, Image, ActivityIndicator } from 'react-native'
 import React, {useState, useContext, useEffect} from 'react'
 import SignInContext from '../../context/SignInContext'
 
+import { Video, ResizeMode } from 'expo-av';
+
 import FirstScreen from './FirstScreen'
 import SecondScreen from './SecondScreen'
 import ThirdScreen from './ThirdScreen'
@@ -34,9 +36,10 @@ export default function SignUp() {
         return(
           <View style={{flex:1, backgroundColor:'white', alignItems:'center', justifyContent:'center'}}>
             <Image
-                source={require('../../assets/logo.png')}
-                style={{width: 200, height: 40}}
+                source={require('../../assets/icon.png')}
+                style={{width: 100, height: 100}}
             />
+
           </View>
         )
       }

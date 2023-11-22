@@ -32,6 +32,13 @@ export default function Servicos() {
    }, [trigger])
 
    async function sendNotification(item){
+
+      const message = {
+         to: item.data.sender.token,
+         title: `${item.data.sender.nome} aceitou seu pedido`,
+         body: 'Confira seus pedidos e seu whatssap!',
+       }
+
       fetch('https://exp.host/--/api/v2/push/send', {
          method:'POST',
          headers: {
@@ -69,6 +76,7 @@ export default function Servicos() {
             tipo:'Aceito'
          }).then(()=>{
             console.log('foi')
+            sendNotification(item)
          })
 
          await updateDoc(docUserRef, {
@@ -82,21 +90,24 @@ export default function Servicos() {
       else{
          await deleteDoc(docPrestadorRef).then(()=>{
             console.log('deletou')
-         })
 
-         await deleteDoc(docUserRef).then(()=>{
-            console.log('deletou2')
-            setTrigger(!trigger)
+            const message = {
+               to: item.data.sender.token,
+               title: `${item.data.sender.nome} recusou seu pedido`,
+               body: 'Não desanime e peça outro!',
+             }
+      
+            fetch('https://exp.host/--/api/v2/push/send', {
+               method:'POST',
+               headers: {
+                  Accept: 'application/json',
+                  'Accept-encoding': 'gzip, deflate',
+                  'Content-Type': 'application/json',
+                },
+               body: JSON.stringify(message)
+             })
          })
       }
-   }
-
-
-
-   if(servicos?.length == 0){
-      return(
-         <Text>Você ainda não tem servicos.</Text>
-      )
    }
 
   return (
@@ -105,6 +116,8 @@ export default function Servicos() {
          source={require('../../../assets/backSignUp.png')}
          style={styles.backIcon}
       />
+
+      {servicos?.length == 0 && <CustomText text='Você não tem serviços'/>}
 
       {servicos?.map((item)=> {
          return(

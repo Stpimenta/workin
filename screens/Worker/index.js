@@ -1,7 +1,7 @@
 import { Text,  StyleSheet, View, Image, FlatList, TouchableOpacity, StatusBar  } from 'react-native';
-import react, {useContext} from 'react'
+import react, {useContext, useState} from 'react'
 import Animated, {FadeIn,} from 'react-native-reanimated'
-import {doc, getDoc} from 'firebase/firestore'
+import {addDoc, collection, doc, getDoc, updateDoc} from 'firebase/firestore'
 import {db} from '../../firebase/config'
 import CustomText from '../../components/Texts/CustomText';
 
@@ -9,6 +9,7 @@ import WorkerContext from '../../context/WorkerContext';
 import AuthContent from '../../context/AuthContext'
 
 import { useNavigation } from '@react-navigation/native';
+import { AntDesign } from '@expo/vector-icons'; 
 
 
 
@@ -25,9 +26,11 @@ export default function WorkerScreen() {
 
   const {receiver, setWorker} = useContext(WorkerContext)
   const {user} = useContext(AuthContent)
+  const[active, setActive] = useState(false)
 
   async function pegarDado(){
     const docRef = doc(db, 'users', user.uid)
+    
 
     let data = new Date(),
       dia  = data.getDate().toString().padStart(2, '0'),
@@ -52,7 +55,24 @@ export default function WorkerScreen() {
     await pegarDado().then(()=>{
       navigation.navigate('Contract')
     })
+  }
 
+  async function favoritar(){
+    const prestadorRef = doc(db, 'prestadores', receiver.id)
+    const userSubRef = collection(db, 'users', user.uid, 'favoritos')
+    setActive(true)
+
+    await updateDoc(prestadorRef, {
+      seguidores: parseInt(receiver.seguidores + 1)
+    }).then(()=>{
+      console.log('foi')
+    })
+
+    const favoritado = {...receiver}
+
+    await addDoc(userSubRef, favoritado).then(()=>{
+      console.log('foi')
+    })
 
   }
 
@@ -62,17 +82,25 @@ export default function WorkerScreen() {
       <StatusBar barStyle='dark-content'/>
       <Animated.View style={styles.containerPhoto} entering={FadeIn.duration(700)}>
           <Image
-            source={{uri:'https://img.icons8.com/?size=256&id=87293&format=png'}}
+            source={{uri: receiver ? receiver.image : 'https://img.icons8.com/?size=256&id=87293&format=png'}}
             style={styles.avatar}
           />
 
           <View style={styles.cortina}>
           </View>
 
+          <TouchableOpacity onPress={favoritar} style={{position:'absolute', top: 20, right: 20}}>
+            <AntDesign name="heart" size={28} color={active ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.6)'} />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={()=> navigation.navigate('Home')}>
+            <Image source={require('../../assets/Vector.png')} style={{position:'absolute', width: 20, resizeMode:'contain',height:20,top: 20, left: 20, transform:[{scaleX: -1}]}}/>
+          </TouchableOpacity>
+
           <View style={styles.nameContainer}> 
             <CustomText text={receiver.nome} type='bold' style={{color: 'white', marginLeft: 25, marginBottom: 10, fontSize: 26}}/>
 
-            <View>
+            <View style={{marginBottom: 6}}>
               <FlatList
                 data={receiver.filtros}
                 renderItem={({item, index})=> (
@@ -116,8 +144,8 @@ const styles = StyleSheet.create({
   },
 
   containerPhoto:{
-    flex:1.4,
-    overflow:'hidden'
+    flex:1.5,
+    overflow:'hidden',
   },
 
   avatar:{
@@ -126,14 +154,14 @@ const styles = StyleSheet.create({
     height:'100%',
     position:'absolute',
     zIndex: 0,
-    opacity: 0.15
+    opacity: 0.85
   },
 
   cortina:{
     width:'100%', 
     height:'100%',
     backgroundColor:'#00081E', 
-    opacity: 0.65, 
+    opacity: 0.45, 
     position:'absolute'
   },
 

@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 import SignInContext from '../../context/SignInContext'
+
+import * as  Notification from 'expo-notifications'
 
 import {createUserWithEmailAndPassword} from 'firebase/auth'
 import {setDoc, doc} from 'firebase/firestore'
@@ -20,10 +22,34 @@ export default function FourthScreen() {
 
   const navigation = useNavigation()
 
-  const[id, setId] = useState(null)
-
-  const {loading, nome, email, endereco, password, phone, setSignInContext} = useContext(SignInContext)
+  const {loading, nome, email, endereco, password, phone, image, setSignInContext} = useContext(SignInContext)
   const[check, setCheck] = useState(false)
+  const[token, setToken] = useState(null)
+
+  useEffect(()=>{
+    handleNotificationsPermissions()
+  }, [])
+
+  Notification.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldPlaySound: true,
+      shouldSetBadge: true,
+      shouldShowAlert: true
+    })
+  })
+
+  const handleNotificationsPermissions = async () =>{
+    const {status} = await Notification.getPermissionsAsync()
+
+    if(status != 'granted'){
+      console.log('notificação não aceita')
+      return
+    }
+
+    await Notification.getExpoPushTokenAsync().then((token)=>{
+       setToken(token.data)
+    })
+  }
 
   const finishSignUp = () =>{
 
@@ -40,8 +66,11 @@ export default function FourthScreen() {
       telefone: phone,
       pedidos:[],
       favoritos:[],
-      isWorker: false,      
+      isWorker: false,
+      image: image,
+      token: token
     }
+
     createUserWithEmailAndPassword(auth, userObj.email, userObj.senha)
       .then((userCred)=> {
 
@@ -62,6 +91,7 @@ export default function FourthScreen() {
                   nome: nome,
                   endereco: endereco,
                   telefone: phone,
+                  contador: 0 
                 })
               })
               .catch((error)=> console.log(error))

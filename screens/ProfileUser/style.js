@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native"
 const styles = StyleSheet.create({
    containerAll:{
       flex:1,
-      backgroundColor:'#EDF2FF',
+      backgroundColor:'white',
       padding: 25,
       paddingTop: 40
    },
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
       width: 90,
       height: 90,
       borderRadius: 96,
-      backgroundColor:'#001240'
+      overflow: "hidden"
    },
 
    containerOptions:{

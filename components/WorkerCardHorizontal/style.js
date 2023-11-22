@@ -2,20 +2,19 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
    card:{
-      height:130,
+      height:110,
       width:'100%',
-      padding:15,
       backgroundColor:'white',
-      borderRadius:10,
       flexDirection:'row',
       gap:20,
       marginBottom: 20,
-      overflow:'hidden'
+      overflow:'hidden',
+      borderWidth:1,
+      borderColor:'rgba(222, 222, 222, 0.5)'
     },
   
     title:{
-      fontSize:18,
-      fontWeight:'bold',
+      fontSize:16,
       marginBottom:3,
       color:'#001240'
     },
