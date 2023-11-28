@@ -73,7 +73,7 @@ export default function ProfileUser() {
       <View style={styles.containerOptions}>
          <Option name='Pedidos' icon={require('../../assets/pedidos.png')} screen='Pedidos' hasSeta/>
          <Option name='Favoritos' icon={require('../../assets/favoritos.png')} screen='Favoritos' hasSeta/>
-         <Option name='Notificação' icon={require('../../assets/notification.png')}/>
+         <Option name='Notificação' icon={require('../../assets/notification.png')} hasSwitch/>
          <Option name='Sobre nós' icon={require('../../assets/team.png')} hasSeta screen='About'/>
          <Option name='Ajuda' icon={require('../../assets/ajuda.png')} hasSeta screen='Help'/>
          <Option name='Termos' icon={require('../../assets/terms.png')} hasSeta/>

@@ -267,7 +267,7 @@ export default function Pedidos() {
             style={styles.backIcon}
          />
 
-         {pedidos?.length == 0 && <CustomText text='Você ainda não tem pedidos...'/>}
+         {pedidos?.length == 0 && <CustomText text={pedidosFast?.length == 0 ? 'Você ainda não tem pedidos...' : ''}/>}
 
 
          {pedidos?.map((item) => (

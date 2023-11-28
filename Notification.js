@@ -46,6 +46,8 @@ export default function NotificationScreen() {
       })
     }
 
+    require('./assets/icon.png')
+
     
     const message = {
       to: 'ExponentPushToken[2iT57DKwiKaKf0-vuj1fwN]',
@@ -65,31 +67,6 @@ export default function NotificationScreen() {
       })
     }
     
-    async function pickImage(){
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1
-      })
-
-      if(!result.canceled){
-        setImage(result.assets[0].uri)
-      }
-    }
-
-    
-
-
-    async function getImage(){
-
-      const imageRef = ref(storage, '4')
-
-      getDownloadURL(imageRef).then((snap)=>{
-        setImageURL(snap)
-      })
-    }
-
 
 
 

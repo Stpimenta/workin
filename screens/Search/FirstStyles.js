@@ -1,7 +1,8 @@
 
 
-import { StyleSheet } from 'react-native';
+import { StyleSheet,Dimensions } from 'react-native';
 
+const{width, height} = Dimensions.get('screen');
 
 const estilos = StyleSheet.create({
     ViewMãe:{
@@ -12,48 +13,45 @@ const estilos = StyleSheet.create({
     VCabecalho:{
         flex:1,
         justifyContent:'flex-end', 
-        alignItems:'center',
-        marginBottom:10,
+        marginBottom:20,
         paddingHorizontal: 10
+
     },
 
     VCorpo:{
         flex:5,
-        paddingHorizontal: 10
     },
 
     TextInput:{
-        width:'100%',
+        width:width-20,
         height:45,
         borderWidth:1,
-        borderRadius:10,
+        borderRadius:6,
         borderColor:'gray',
         color:'black',
         backgroundColor:'white',
         paddingLeft:10,
-        marginTop:40,
-        marginHorizontal: 10
+        flexDirection:'row',
+        alignItems:'center',
     },
 
     Text:{
         fontSize:25,
-        fontWeight:'bold',
+        marginLeft:10,
     },
 
     Imgcategoria:{
-        width:165,
-        height:100,
+        width:width/2 - 15,
+        height:width/3,
         borderRadius:5,
         marginTop:10,
-        alignItems:"center",
-        marginLeft:5,
-        marginRight:5,
-        resizeMode:'stretch'
+        resizeMode:'stretch',
+        marginRight:10,
     },
 
     VCategorias:{
         flexDirection:"row",
-        justifyContent:"center",
+        paddingHorizontal: 10
     },
 
 

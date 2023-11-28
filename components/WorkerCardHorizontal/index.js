@@ -14,7 +14,7 @@ import { AntDesign, Foundation, FontAwesome   } from '@expo/vector-icons';
 
 export default function WorkerCardHorizontal({item}) {
 
-   const arr = [1, 2,3]
+   const arr = ['Eletricista', 'Pias', 'Chuveiro']
 
   const worker = useContext(WorkerContext)
   const navigation = useNavigation()
@@ -46,7 +46,7 @@ export default function WorkerCardHorizontal({item}) {
             <CustomText text={item.nome} type='semi' style={styles.title}/>
             
             <View style={{flexDirection:'row', gap:12, flexWrap:'wrap'}}>
-              {arr.map(()=> <CustomText text='Eletricista' style={{fontSize:10}}/>)}
+              {arr.map((item)=> <CustomText text={item} style={{fontSize:10}}/>)}
             </View>
           </View>
 

@@ -18,3 +18,4 @@ export default [
       image: require('./assets/imageThree.png')
     }
  ]
+

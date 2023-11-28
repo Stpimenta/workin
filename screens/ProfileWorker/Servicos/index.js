@@ -121,7 +121,7 @@ export default function Servicos() {
 
       {servicos?.map((item)=> {
          return(
-            <TouchableOpacity style={styles.containerCard}>
+            <TouchableOpacity key={item.id} style={styles.containerCard}>
    
             <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between', marginBottom: 20}}>
                <CustomText text={item.data.sender.nome} type='bold' style={styles.nomePrestador}/>

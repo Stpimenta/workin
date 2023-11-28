@@ -1,5 +1,5 @@
 import { collection, query, where, getDocs,} from 'firebase/firestore'
-import {View, TouchableOpacity, Text, TextInput,Image} from 'react-native'
+import {View, TouchableOpacity, Text, TextInput,Image,ScrollView} from 'react-native'
 import { db } from '../../firebase/config'
 import { useEffect, useState } from 'react'
 import Estilos from "./secondStyles"
@@ -35,9 +35,9 @@ export default function Teste({route}){
     }
 
         const[texto, setTexto] = useState()
-        function Serch(txt){
+        function Serch(){
             const UpperCase  = () => {
-                let mais = txt.charAt(0).toUpperCase() + txt.slice(1);
+                let mais = texto.charAt(0).toUpperCase() + texto.slice(1);
                 return mais
             }
             pegarDados(UpperCase())
@@ -66,22 +66,24 @@ export default function Teste({route}){
         <View style={Estilos.ViewMãe}>
             {/*Cabeçalho*/}
             <View style={Estilos.VCabecalho}> 
-                <TextInput
-                     placeholder='Pesquise por uma cateogoria'
-                     onChangeText={(txt)=> setTexto(txt)}
-                     onSubmitEditing={()=>Serch(texto)}
-                     style={Estilos.TextInput}
+                <View style={Estilos.TextInput}>
+                    <Image source={require('../../assets/Serchicon.png')} style={{width:30, height:30, marginRight:10,}} />
+                    <TextInput
+                    placeholder='Pesquise por uma categoria'
+                    onChangeText={(txt)=> setTexto(txt)}
+                    onSubmitEditing={()=>Serch()}
                     />
                 </View>
+            </View>
 
             {/*Corpo*/}
             <View style={Estilos.VCorpo}> 
-            
+                <ScrollView>
 
                     {/*card*/}
                     {prestadores?.map((item)=> (
                         <View style={{marginBottom:20,}}>
-                            <TouchableOpacity style={Estilos.Vcard}>
+                            <TouchableOpacity style={Estilos.Vcard} onPress={()=>handleNavigation(item)}>
                                 <Image
                                     style={Estilos.Imgcategoria}
                                     source={{uri:item.data.image}}
@@ -91,18 +93,18 @@ export default function Teste({route}){
                                     <Text>{item.data.filtros[0]} {item.data.filtros[1]} {item.data.filtros[2]}</Text>
                                     
                                 </View>
-                                <TouchableOpacity onPress={()=>handleNavigation(item)} style={Estilos.ProsseguiImgV}>
+                                <View  style={Estilos.ProsseguiImgV}>
                                     <Image
                                         style={Estilos.Prosseguir}
                                         source={require("../../assets/prosseguir.png")}
                                     /> 
-                                </TouchableOpacity>
+                                </View>
                             </TouchableOpacity>
                             <View style={Estilos.Separator}></View>
                         </View>
                         
                     ))}
-
+                </ScrollView>
                 
 
             </View>

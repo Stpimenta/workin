@@ -149,7 +149,7 @@ export default function Home() {
         
         {data.map((item)=>{
           return(
-            <WorkerCardHorizontal item={item}/>
+            <WorkerCardHorizontal key={item.nome} item={item}/>
           )
         })}
       </View>

@@ -38,6 +38,7 @@ export default function FourthScreen() {
   const { setSignInContext } = useContext(SignInContext)
   const { CPF, filters, descricao, price } = useContext(SignInWorkerContext)
 
+
   async function pickImage() {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -71,8 +72,6 @@ export default function FourthScreen() {
         xhr.open('GET', uri, true)
         xhr.send(null)
       })
-
-      const filename = image.substring(image.lastIndexOf('/') + 1)
 
       const imageRef = ref(storage, user.uid)
 
@@ -113,7 +112,6 @@ export default function FourthScreen() {
           })
 
           navigation.navigate('Home')
-
         })
       })
     } catch (error) {
@@ -122,9 +120,6 @@ export default function FourthScreen() {
   }
 
   async function nextStep() {
-    const docRef = doc(db, 'prestadores', user.uid)
-    const userRef = doc(db, 'users', user.uid)
-
     await upload()
   }
 

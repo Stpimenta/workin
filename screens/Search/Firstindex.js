@@ -5,11 +5,10 @@ import { useNavigation } from '@react-navigation/native';
 import CustomText from '../../components/Texts/CustomText';
 import estilos from './FirstStyles';
 
-
 function Tela3() {
   const prestadores = [
     {
-      name: 'Cabeleleiro',
+      name: 'Cabeleireiro',
       img: 'https://i.postimg.cc/1Rb6Rfhm/Cabaleleiro.png',
 
       name2: 'Eletricista',
@@ -20,7 +19,7 @@ function Tela3() {
       name: 'Babá',
       img: 'https://i.postimg.cc/Cdyw3320/Bab.png',
 
-      name2: 'Pintor',
+      name2: 'Pintura',
       img2: 'https://i.postimg.cc/x846hywh/Pintura.png',
     },
 
@@ -28,7 +27,7 @@ function Tela3() {
       name: 'Pedreiro',
       img: 'https://i.postimg.cc/MGsMCGm8/Pedreiro.png',
 
-      name2: 'Cuidadordepets',
+      name2: 'Cuidador de pets',
       img2:'https://i.postimg.cc/brSzFy3L/Cuidadordepets.png',
     },
 
@@ -52,12 +51,12 @@ function Tela3() {
       name: 'Pintor',
       img: 'https://i.postimg.cc/gJnXmPgL/Pintor.png',
 
-      name2: 'Tubulacoes',
+      name2: 'Tubulações',
       img2:'https://i.postimg.cc/vZ902n32/Tubulacoes.png',
     },
 
     {
-      name: 'Esgoto',
+      name: 'Caixas de esgoto',
       img: 'https://i.postimg.cc/MHKLhGvM/Caixade-Esgosto.png',
    
       name2: 'Caixadagua',
@@ -65,15 +64,15 @@ function Tela3() {
     },
 
     {
-      name: 'Arcondicionado',
+      name: 'Ar Condicionado',
       img: 'https://i.postimg.cc/J4FF2Mm0/Arconcidicionado.png',
 
-      name2: 'Tanque',
+      name2: 'Tanques',
       img2: 'https://i.postimg.cc/nzTRYt0H/Tanque.png',
     },
 
     {
-      name: 'Chuveiro',
+      name: 'Chuveiros',
       img: 'https://i.postimg.cc/bvk4nM7J/Chuveiro.png',
 
       name2: 'Telefone',
@@ -101,25 +100,17 @@ function Tela3() {
       name: 'Ralos',
       img:'https://i.postimg.cc/cCHDF5bf/Ralos.png',
 
-      name2: 'Maquinadelavar',
+      name2: 'Máquina de lavar',
       img2:'https://i.postimg.cc/pdb6PCmt/Maquinadelavar.png',
     },
 
     {
       name: 'Microondas',
       img: 'https://i.postimg.cc/XJn1CvKH/Microondas.png',
-      name2: 'Luthie',
-      img2:'https://i.postimg.cc/vHTjhDJC/Luthie.png',
-      
-    },
-
-    {
-      name: 'Violão',
-      img: 'https://i.postimg.cc/4xwYsn5q/15.png',
-      name2: 'Pintura',
-      img2: 'https://i.postimg.cc/x846hywh/Pintura.png',
-    },
-
+   
+      name2: 'Violão',
+      img2: 'https://i.postimg.cc/4xwYsn5q/15.png',
+    }
    
 
   ]
@@ -145,20 +136,22 @@ function Tela3() {
 
       {/*Cabeçalho*/}
         <View style={Estilos.VCabecalho}> 
-          <TextInput
-            placeholder='Pesquise por uma cateogoria'
-            onChangeText={(txt)=> setTexto(txt)}
-            onSubmitEditing={()=>handleNavigation()}
-            style={Estilos.TextInput}
-          />
+          <View style={Estilos.TextInput}>
+            <Image source={require('../../assets/Serchicon.png')} style={{width:30, height:30, marginRight:10,}} />
+            <TextInput
+              placeholder='Pesquise por uma categoria'
+              onChangeText={(txt)=> setTexto(txt)}
+              onSubmitEditing={()=>handleNavigation()}
+            />
+          </View>
         </View>
 
       {/*Corpo*/}
         <View style={estilos.VCorpo}>
           <ScrollView>
-              <CustomText text ="Categorias" style={estilos.Text}/>
+              <CustomText text ="Categorias" style={{marginLeft: 10, fontSize: 20}} type='semi'/>
               {prestadores.map((item) => (
-                <View style={Estilos.VCategorias}>
+                <View key={item.img} style={Estilos.VCategorias}>
                   <TouchableOpacity
                       onPress={()=> navigation.navigate('Teste', {
                         filtro: item.name
